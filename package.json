@@ -10,8 +10,20 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@react-native-picker/picker": "^2.4.6",
+    "@react-navigation/bottom-tabs": "^6.4.0",
+    "@react-navigation/native": "^6.0.13",
+    "babel-plugin-react-native-classname-to-style": "^1.2.2",
+    "babel-plugin-react-native-platform-specific-extensions": "^1.1.1",
+    "expo-font": "^10.2.0",
+    "expo-module-scripts": "^1.2.0",
     "react": "18.1.0",
-    "react-native": "0.70.1"
+    "react-native": "0.70.1",
+    "react-native-elements": "^3.4.2",
+    "react-native-safe-area-context": "^3.4.1",
+    "react-native-sass-transformer": "^2.0.0",
+    "react-native-screens": "^3.17.0",
+    "sass": "^1.55.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

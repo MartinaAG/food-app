@@ -1,0 +1,32 @@
+.view {
+    background-color: rgb(248, 227, 227);
+    padding: 20px;
+    height: 100%;
+}
+
+.text {
+    color: rgb(146, 37, 37);
+    font-size: 18;
+    margin-top:25px
+}
+
+.textInput {
+    box-sizing: border-box;
+    border: 1px solid rgb(146, 37, 37);
+    border-radius: 25px;
+    margin-top: 6px;
+    margin-bottom: 0;
+}
+
+.roundButton {
+    top: 15px;
+    border-width: 1px;
+    border-color: rgba(0,0,0,0.2);
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    background-color:rgb(146, 37, 37);
+    border-radius: 50px;
+    margin-left: auto;
+}
