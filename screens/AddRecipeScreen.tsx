@@ -10,22 +10,30 @@ import {
 import {Picker} from '@react-native-picker/picker';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import style from './AddRecipeScreen.scss';
-import {storeStringData, getStringData, storeObjectData} from '../ManageData';
+import {
+  storeStringData,
+  getStringData,
+  storeObjectData,
+  clearAll,
+} from '../ManageData';
 
 const AddRecipeScreen: FC<{}> = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>();
-  const [data, setData] = useState<string>();
   const [title, setTitle] = useState<string>('');
-  const [product, setProduct] = useState<string>('');
+  const [products, setProducts] = useState<string[]>([]);
+
   const [steps, setSteps] = useState<string>('');
 
   //getStringData('Marty').then((e: string) => setData(e));
 
+  const addNewProduct = (): void => {};
+
   const addRecipeToStorage = (): void => {
-// da dobavq za getAllKeys https://react-native-async-storage.github.io/async-storage/docs/api
+    // da dobavq za getAllKeys https://react-native-async-storage.github.io/async-storage/docs/api
+    console.log('yeeee', title, products, steps);
     storeObjectData(title, {
       title: title,
-      product: product,
+      products: products,
       steps: steps,
     });
   };
@@ -41,13 +49,24 @@ const AddRecipeScreen: FC<{}> = () => {
           />
 
           <Text style={style.text}>Ingredients</Text>
-          <TextInput
-            style={style.textInput}
-            onChangeText={newText => setProduct(newText)}
-          />
+          {products.map((product, index) => (
+            <TextInput
+              key={index}
+              style={style.textInput}
+              // value={product}
+              onChangeText={newText =>
+                setProducts(prevProducts => {
+                  prevProducts[index] = newText;
+                  return prevProducts;
+                })
+              }
+            />
+          ))}
 
           <TouchableOpacity
-            onPress={() => Alert.alert('I will add a new product')}
+            onPress={() => {
+              setProducts(prevProducts => prevProducts.concat(''));
+            }}
             style={style.roundButton}>
             <Icon name="plus" size={24} color="#fff" />
           </TouchableOpacity>
@@ -77,6 +96,12 @@ const AddRecipeScreen: FC<{}> = () => {
             onPress={() => addRecipeToStorage()}
             style={style.addRecipeButton}>
             <Text style={style.textButton}>Add recipe</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => clearAll()}
+            style={style.addRecipeButton}>
+            <Text style={style.textButton}>Clear all</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

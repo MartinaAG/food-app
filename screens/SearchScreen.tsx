@@ -1,10 +1,16 @@
 import React, {FC, useState, useEffect} from 'react';
-import {ScrollView, StatusBar, Text, useColorScheme, View} from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {
+  ScrollView,
+  StatusBar,
+  Text,
+  useColorScheme,
+  View,
+  SafeAreaView,
+  StyleSheet,
+} from 'react-native';
 
-import BaseComponent from '../BaseComponent';
-import Section from '../Section';
-import Header from '../Header';
+import SectionList from '../components/SectionList';
+
 import {
   storeStringData,
   getStringData,
@@ -14,24 +20,45 @@ import {
 
 type DataType = {
   title: string;
-  product: string;
+  products: string[];
   steps: string;
 };
 
 function SearchScreen() {
-  const [data, setData] = useState<DataType>();
+  const [data, setData] = useState<DataType[]>([
+    {title: '', products: [], steps: ''},
+  ]);
 
   useEffect(() => {
-    getObjectData('First').then((e: DataType) => setData(e));
+    getObjectData('MartyKarty2').then((e: any) => {
+      console.log(e);
+      setData([
+        {
+          title: JSON.stringify(e.title),
+          products: e.products,
+          steps: e.steps,
+        },
+      ]);
+    });
   }, []);
 
   return (
-    <>
-      <Text>{data?.title}</Text>
-      <Text>{data?.product}</Text>
-      <Text>{data?.steps}</Text>
-    </>
+    <SafeAreaView style={styles.container}>
+      <SectionList recipes={data} />
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: StatusBar.currentHeight,
+    marginHorizontal: 16,
+  },
+  header: {
+    fontSize: 32,
+    backgroundColor: '#fff',
+  },
+});
 
 export default SearchScreen;
