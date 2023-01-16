@@ -1,4 +1,4 @@
-import {StyleSheet, Text, useColorScheme, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 
 import React, {type PropsWithChildren} from 'react';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
@@ -8,14 +8,13 @@ const Section: React.FC<
     title: string;
   }>
 > = ({children, title}) => {
-  const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
       <Text
         style={[
           styles.sectionTitle,
           {
-            color: isDarkMode ? Colors.white : Colors.black,
+            color: Colors.white,
           },
         ]}>
         {title}
@@ -24,7 +23,7 @@ const Section: React.FC<
         style={[
           styles.sectionDescription,
           {
-            color: isDarkMode ? Colors.light : Colors.dark,
+            color: Colors.light,
           },
         ]}>
         {children}

@@ -10,32 +10,25 @@ import {
 import {Picker} from '@react-native-picker/picker';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import style from './AddRecipeScreen.scss';
-import {
-  storeStringData,
-  getStringData,
-  storeObjectData,
-  clearAll,
-} from '../ManageData';
+import {storeObjectData, clearAll, getObjectData} from '../ManageData';
 
 const AddRecipeScreen: FC<{}> = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>();
   const [title, setTitle] = useState<string>('');
   const [products, setProducts] = useState<string[]>([]);
-
   const [steps, setSteps] = useState<string>('');
 
-  //getStringData('Marty').then((e: string) => setData(e));
-
-  const addNewProduct = (): void => {};
-
-  const addRecipeToStorage = (): void => {
-    // da dobavq za getAllKeys https://react-native-async-storage.github.io/async-storage/docs/api
+  const addRecipeToStorage = async (): Promise<void> => {
     console.log('yeeee', title, products, steps);
-    storeObjectData(title, {
-      title: title,
-      products: products,
-      steps: steps,
-    });
+    let currentRecipes = (await getObjectData('recipes')) || [];
+    storeObjectData('recipes', [
+      ...currentRecipes,
+      {
+        title: title,
+        products: products,
+        steps: steps,
+      },
+    ]);
   };
 
   return (
@@ -48,12 +41,11 @@ const AddRecipeScreen: FC<{}> = () => {
             onChangeText={newText => setTitle(newText)}
           />
 
-          <Text style={style.text}>Ingredients</Text>
-          {products.map((product, index) => (
+          <Text style={style.text}>Products</Text>
+          {products.map((index: any) => (
             <TextInput
               key={index}
               style={style.textInput}
-              // value={product}
               onChangeText={newText =>
                 setProducts(prevProducts => {
                   prevProducts[index] = newText;
@@ -63,6 +55,7 @@ const AddRecipeScreen: FC<{}> = () => {
             />
           ))}
 
+          {/* plus button for adding new product */}
           <TouchableOpacity
             onPress={() => {
               setProducts(prevProducts => prevProducts.concat(''));

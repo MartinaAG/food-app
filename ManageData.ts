@@ -6,7 +6,7 @@ export async function storeStringData(key: string, value: string) {
   try {
     await AsyncStorage.setItem(key, value);
   } catch (e) {
-    // saving error
+    console.log(e);
   }
 }
 
@@ -15,7 +15,7 @@ export async function storeObjectData(key: string, value: object) {
     const jsonValue = JSON.stringify(value);
     await AsyncStorage.setItem(key, jsonValue);
   } catch (e) {
-    // saving error
+    console.log(e);
   }
 }
 
@@ -24,7 +24,7 @@ export async function getStringData(key: string): Promise<string> {
   try {
     value = (await AsyncStorage.getItem(key)) || '';
   } catch (e) {
-    // error reading value
+    console.log(e);
   }
   return value;
 }
@@ -34,7 +34,7 @@ export async function getObjectData(key: string) {
     const jsonValue = await AsyncStorage.getItem(key);
     return jsonValue != null ? JSON.parse(jsonValue) : null;
   } catch (e) {
-    // error reading value
+    console.log(e);
   }
 }
 
@@ -43,6 +43,7 @@ export async function removeItemValue(key: string) {
     await AsyncStorage.removeItem(key);
     return true;
   } catch (exception) {
+    console.log(exception);
     return false;
   }
 }
@@ -51,8 +52,19 @@ export async function clearAll() {
   try {
     await AsyncStorage.clear();
   } catch (e) {
-    // clear error
+    console.log(e);
   }
 
   console.log('Done.');
+}
+
+export async function fetchAllItems() {
+  try {
+    const keys = await AsyncStorage.getAllKeys();
+    const items = await AsyncStorage.multiGet(keys);
+
+    return items;
+  } catch (e) {
+    console.log(e);
+  }
 }

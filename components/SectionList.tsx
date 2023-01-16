@@ -1,17 +1,5 @@
-import React, {FC, useState} from 'react';
-import {
-  Text,
-  TextInput,
-  ScrollView,
-  View,
-  Alert,
-  TouchableOpacity,
-  StatusBar,
-  StyleSheet,
-} from 'react-native';
-import {Picker} from '@react-native-picker/picker';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import style from './AddRecipeScreen.scss';
+import React, {FC} from 'react';
+import {Text, View, StyleSheet} from 'react-native';
 
 type SectionListProps = {
   recipes: DataType[];

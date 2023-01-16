@@ -11,12 +11,7 @@ import {
 
 import SectionList from '../components/SectionList';
 
-import {
-  storeStringData,
-  getStringData,
-  storeObjectData,
-  getObjectData,
-} from '../ManageData';
+import {getObjectData} from '../ManageData';
 
 type DataType = {
   title: string;
@@ -24,30 +19,32 @@ type DataType = {
   steps: string;
 };
 
-function SearchScreen() {
+type SearchScreenType = {
+  navigation: any;
+};
+
+const SearchScreen: FC<SearchScreenType> = ({navigation}) => {
   const [data, setData] = useState<DataType[]>([
     {title: '', products: [], steps: ''},
   ]);
 
   useEffect(() => {
-    getObjectData('MartyKarty2').then((e: any) => {
-      console.log(e);
-      setData([
-        {
-          title: JSON.stringify(e.title),
-          products: e.products,
-          steps: e.steps,
-        },
-      ]);
+    const updateItems = navigation.addListener('tabPress', () => {
+      getObjectData('recipes').then((items: any[]) => {
+        console.log(items);
+        setData(items);
+      });
     });
-  }, []);
+
+    return updateItems;
+  }, [navigation]);
 
   return (
     <SafeAreaView style={styles.container}>
       <SectionList recipes={data} />
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
