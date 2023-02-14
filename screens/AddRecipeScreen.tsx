@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {
   Text,
   TextInput,
@@ -15,11 +15,25 @@ import {storeObjectData, clearAll, getObjectData} from '../ManageData';
 const AddRecipeScreen: FC<{}> = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>();
   const [title, setTitle] = useState<string>('');
-  const [products, setProducts] = useState<string[]>([]);
+  const [products, setProducts] = useState<string[]>(['']);
   const [steps, setSteps] = useState<string>('');
 
+  const showAddedRecipeAlert = (): void => {
+    Alert.alert('Recipe added', 'View all recipes in the Search menu', [
+      {
+        text: 'OK',
+        onPress: () => console.log('OK Pressed'),
+      },
+    ]);
+  };
+
+  const clearAllFields = (): void => {
+    setTitle('');
+    setProducts(['']);
+    setSteps('');
+  };
+
   const addRecipeToStorage = async (): Promise<void> => {
-    console.log('yeeee', title, products, steps);
     let currentRecipes = (await getObjectData('recipes')) || [];
     storeObjectData('recipes', [
       ...currentRecipes,
@@ -29,6 +43,9 @@ const AddRecipeScreen: FC<{}> = () => {
         steps: steps,
       },
     ]);
+
+    showAddedRecipeAlert();
+    clearAllFields();
   };
 
   return (
@@ -39,19 +56,22 @@ const AddRecipeScreen: FC<{}> = () => {
           <TextInput
             style={style.textInput}
             onChangeText={newText => setTitle(newText)}
+            value={title}
           />
 
           <Text style={style.text}>Products</Text>
-          {products.map((index: any) => (
+          {products.map((product, index: any) => (
             <TextInput
               key={index}
               style={style.textInput}
               onChangeText={newText =>
                 setProducts(prevProducts => {
-                  prevProducts[index] = newText;
-                  return prevProducts;
+                  const newProducts = [...prevProducts];
+                  newProducts[index] = newText;
+                  return newProducts;
                 })
               }
+              value={product}
             />
           ))}
 
@@ -69,6 +89,7 @@ const AddRecipeScreen: FC<{}> = () => {
             multiline
             style={style.textInput}
             onChangeText={newText => setSteps(newText)}
+            value={steps}
           />
 
           <Text style={style.text}>Category</Text>
@@ -88,7 +109,7 @@ const AddRecipeScreen: FC<{}> = () => {
           <TouchableOpacity
             onPress={() => addRecipeToStorage()}
             style={style.addRecipeButton}>
-            <Text style={style.textButton}>Add recipe</Text>
+            <Text style={style.textButton}>Save</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
