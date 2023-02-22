@@ -31,10 +31,21 @@ const App: React.FC = () => {
             }}
           />
           <Tab.Screen
-            name="Search"
+            name="Saved"
             component={SearchScreen}
             options={{
-              tabBarIcon: () => <Icon name="search" size={30} color="#000" />,
+              tabBarIcon: () => (
+                <Icon name="bookmark-o" size={26} color="#000" />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Planner"
+            component={SearchScreen}
+            options={{
+              tabBarIcon: () => (
+                <Icon name="calendar-o" size={26} color="#000" />
+              ),
             }}
           />
           <Tab.Screen

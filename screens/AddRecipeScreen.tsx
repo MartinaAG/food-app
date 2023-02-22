@@ -33,8 +33,18 @@ const AddRecipeScreen: FC<{}> = () => {
     setSteps('');
   };
 
+  const validateInputFieds = (
+    title,
+    products,
+    steps,
+    currentRecipes,
+  ): void => {};
+
   const addRecipeToStorage = async (): Promise<void> => {
     let currentRecipes = (await getObjectData('recipes')) || [];
+
+    validateInputFieds(title, products, steps, currentRecipes);
+
     storeObjectData('recipes', [
       ...currentRecipes,
       {

@@ -28,15 +28,21 @@ const SearchScreen: FC<SearchScreenType> = ({navigation}) => {
     {title: '', products: [], steps: ''},
   ]);
 
-  useEffect(() => {
-    const updateItems = navigation.addListener('tabPress', () => {
-      getObjectData('recipes').then((items: any[]) => {
-        console.log(items);
-        setData(items);
-      });
+  const updateRecipes = () => {
+    getObjectData('recipes').then((items: any[]) => {
+      setData(items);
     });
+  };
 
-    return updateItems;
+  // on component mount
+  useEffect(() => {
+    updateRecipes();
+  }, []);
+
+  useEffect(() => {
+    navigation.addListener('tabPress', () => {
+      updateRecipes();
+    });
   }, [navigation]);
 
   return (
