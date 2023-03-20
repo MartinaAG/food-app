@@ -5,7 +5,7 @@
   "scripts": {
     "app": "concurrently -k -n android,gsm \"npm:android\" \"npm:gsm\"",
     "android": "react-native run-android",
-    "gsm": "C:\\Users\\martina.georgieva\\AppData\\Local\\Android\\Sdk\\emulator\\emulator.exe -avd Pixel_3_API_30",
+    "gsm": "C:\\Users\\MGeorg05\\AppData\\Local\\Android\\Sdk\\emulator\\emulator.exe -avd Pixel_3_API_31",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
