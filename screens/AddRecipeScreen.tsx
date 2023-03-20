@@ -12,11 +12,20 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import style from './AddRecipeScreen.scss';
 import {storeObjectData, clearAll, getObjectData} from '../ManageData';
 
+type Recipe = {
+  title: string;
+  products: string[];
+  steps: string;
+};
+
 const AddRecipeScreen: FC<{}> = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>();
   const [title, setTitle] = useState<string>('');
   const [products, setProducts] = useState<string[]>(['']);
   const [steps, setSteps] = useState<string>('');
+  const [titleError, setTitleError] = useState(false);
+  const [productsError, setProductsError] = useState(false);
+  const [stepsError, setStepsError] = useState(false);
 
   const showAddedRecipeAlert = (): void => {
     Alert.alert('Recipe added', 'View all recipes in the Search menu', [
@@ -33,29 +42,68 @@ const AddRecipeScreen: FC<{}> = () => {
     setSteps('');
   };
 
-  const validateInputFieds = (
-    title,
-    products,
-    steps,
-    currentRecipes,
-  ): void => {};
+  const validateInputFields = (currentRecipes: Recipe[]): boolean => {
+    let areValidInputs = true;
+
+    const isAlreadyExistingRecipe = currentRecipes.find(
+      (recipe: Recipe) => recipe.title === title,
+    );
+
+    if (!title || isAlreadyExistingRecipe) {
+      setTitleError(true);
+      areValidInputs = false;
+    }
+
+    if (!products[0]) {
+      setProductsError(true);
+      areValidInputs = false;
+    }
+
+    if (!steps) {
+      setStepsError(true);
+      areValidInputs = false;
+    }
+
+    return areValidInputs;
+  };
 
   const addRecipeToStorage = async (): Promise<void> => {
     let currentRecipes = (await getObjectData('recipes')) || [];
 
-    validateInputFieds(title, products, steps, currentRecipes);
+    const areInputsValid = validateInputFields(currentRecipes);
 
-    storeObjectData('recipes', [
-      ...currentRecipes,
-      {
-        title: title,
-        products: products,
-        steps: steps,
-      },
-    ]);
+    if (areInputsValid) {
+      storeObjectData('recipes', [
+        ...currentRecipes,
+        {
+          title: title,
+          products: products,
+          steps: steps,
+        },
+      ]);
 
-    showAddedRecipeAlert();
-    clearAllFields();
+      showAddedRecipeAlert();
+      clearAllFields();
+    }
+  };
+
+  const handleTextChange = (newText: string) => {
+    setTitle(newText);
+    setTitleError(false);
+  };
+
+  const handleProductsChange = (newText: string, index: number) => {
+    setProducts(prevProducts => {
+      const newProducts = [...prevProducts];
+      newProducts[index] = newText;
+      return newProducts;
+    });
+    setProductsError(false);
+  };
+
+  const handleStepsChange = (newText: string) => {
+    setSteps(newText);
+    setStepsError(false);
   };
 
   return (
@@ -64,8 +112,8 @@ const AddRecipeScreen: FC<{}> = () => {
         <View style={style.inlineView}>
           <Text style={style.text}>Title</Text>
           <TextInput
-            style={style.textInput}
-            onChangeText={newText => setTitle(newText)}
+            style={[style.textInput, titleError && style.error]}
+            onChangeText={newText => handleTextChange(newText)}
             value={title}
           />
 
@@ -73,14 +121,8 @@ const AddRecipeScreen: FC<{}> = () => {
           {products.map((product, index: any) => (
             <TextInput
               key={index}
-              style={style.textInput}
-              onChangeText={newText =>
-                setProducts(prevProducts => {
-                  const newProducts = [...prevProducts];
-                  newProducts[index] = newText;
-                  return newProducts;
-                })
-              }
+              style={[style.textInput, productsError && style.error]}
+              onChangeText={newText => handleProductsChange(newText, index)}
               value={product}
             />
           ))}
@@ -97,8 +139,8 @@ const AddRecipeScreen: FC<{}> = () => {
           <Text style={style.text}>Steps</Text>
           <TextInput
             multiline
-            style={style.textInput}
-            onChangeText={newText => setSteps(newText)}
+            style={[style.textInput, stepsError && style.error]}
+            onChangeText={newText => handleStepsChange(newText)}
             value={steps}
           />
 

@@ -1,4 +1,8 @@
 Notes:
+
+npm run app
+npm run gsm и след това npm run android
+
 https://www.npmjs.com/package/react-native-vector-icons
 https://oblador.github.io/react-native-vector-icons/ - choose icons
 
@@ -34,9 +38,19 @@ Week - 13.02 - 19.02
 Week - 20.02 - 26.02
 1)  Да оправя Search страницата - в началото не се показват рецептите (само при стартиране на приложението) -- DONE
 
+18 mart
+1) Довършвам част от validateInputFieds
+
 
 To do list:
-1) да има warning, ако user-a не е въвел title, products или steps или е с повтарящо се име - в AddRecipeScreen добавих validateInputFieds() - да я довърша
+1) да има warning, ако user-a не е въвел title, products или steps или е с повтарящо се име - в AddRecipeScreen добавих validateInputFieds() - да я довърша като добаея messages под самите полета
+   {nameError && <Text style={styles.errorText}>Please add name</Text>} - под полетата 
+   и css за тях:
+   errorText: {
+    color: 'red',
+    fontSize: 12,
+    marginTop: 5,
+  }
 2) да оправя на Search page-a да има скрол като сме добавили повече рецепти
 3) да вкарам в SectionList използването на RecipeItem за всяка една добавена рецепта на Search страницата
 4) да измисля дизайн за RecipeMini на search page-a
