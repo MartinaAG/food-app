@@ -11,6 +11,7 @@ import {Picker} from '@react-native-picker/picker';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import style from './AddRecipeScreen.scss';
 import {storeObjectData, clearAll, getObjectData} from '../ManageData';
+import AddRecipeInputField from '../components/AddRecipeInputField';
 
 type Recipe = {
   title: string;
@@ -110,10 +111,11 @@ const AddRecipeScreen: FC<{}> = () => {
     <View style={style.wrapperView}>
       <ScrollView style={style.scrollView}>
         <View style={style.inlineView}>
-          <Text style={style.text}>Title</Text>
-          <TextInput
-            style={[style.textInput, titleError && style.error]}
-            onChangeText={newText => handleTextChange(newText)}
+          <AddRecipeInputField
+            title={'Title'}
+            error={titleError}
+            handleChange={handleTextChange}
+            errorMessage={'Please enter a valid title'}
             value={title}
           />
 
@@ -126,6 +128,9 @@ const AddRecipeScreen: FC<{}> = () => {
               value={product}
             />
           ))}
+          {productsError && (
+            <Text style={style.errorText}>Please add some products</Text>
+          )}
 
           {/* plus button for adding new product */}
           <TouchableOpacity
@@ -136,11 +141,11 @@ const AddRecipeScreen: FC<{}> = () => {
             <Icon name="plus" size={24} color="#fff" />
           </TouchableOpacity>
 
-          <Text style={style.text}>Steps</Text>
-          <TextInput
-            multiline
-            style={[style.textInput, stepsError && style.error]}
-            onChangeText={newText => handleStepsChange(newText)}
+          <AddRecipeInputField
+            title={'Steps'}
+            error={stepsError}
+            handleChange={handleStepsChange}
+            errorMessage={'Please add some steps'}
             value={steps}
           />
 

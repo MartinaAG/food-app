@@ -41,16 +41,12 @@ Week - 20.02 - 26.02
 18 mart
 1) Довършвам част от validateInputFieds
 
+22 mart
+1) добавих warning, ако user-a не е въвел title, products или steps или е с повтарящо се име - в AddRecipeScreen добавих validateInputFieds() - да я довърша като добаея messages
+
 
 To do list:
-1) да има warning, ако user-a не е въвел title, products или steps или е с повтарящо се име - в AddRecipeScreen добавих validateInputFieds() - да я довърша като добаея messages под самите полета
-   {nameError && <Text style={styles.errorText}>Please add name</Text>} - под полетата 
-   и css за тях:
-   errorText: {
-    color: 'red',
-    fontSize: 12,
-    marginTop: 5,
-  }
+1) да направя отделен компонент за products input field-a заедно с + бутона (както направих за AddRecipeInputField)
 2) да оправя на Search page-a да има скрол като сме добавили повече рецепти
 3) да вкарам в SectionList използването на RecipeItem за всяка една добавена рецепта на Search страницата
 4) да измисля дизайн за RecipeMini на search page-a
