@@ -44,9 +44,11 @@ Week - 20.02 - 26.02
 22 mart
 1) добавих warning, ако user-a не е въвел title, products или steps или е с повтарящо се име - в AddRecipeScreen добавих validateInputFieds() - да я довърша като добаея messages
 
+24 mart 
+1) извадих AddRecipeProductInputField в отделен компонент заедно с + бутона (както направих за AddRecipeInputField)
 
 To do list:
-1) да направя отделен компонент за products input field-a заедно с + бутона (както направих за AddRecipeInputField)
+1) да направя отделен компонент за Category
 2) да оправя на Search page-a да има скрол като сме добавили повече рецепти
 3) да вкарам в SectionList използването на RecipeItem за всяка една добавена рецепта на Search страницата
 4) да измисля дизайн за RecipeMini на search page-a

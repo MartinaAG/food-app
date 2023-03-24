@@ -1,17 +1,10 @@
-import React, {FC, useEffect, useState} from 'react';
-import {
-  Text,
-  TextInput,
-  ScrollView,
-  View,
-  Alert,
-  TouchableOpacity,
-} from 'react-native';
+import React, {FC, useState} from 'react';
+import {Text, ScrollView, View, Alert, TouchableOpacity} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import style from './AddRecipeScreen.scss';
 import {storeObjectData, clearAll, getObjectData} from '../ManageData';
 import AddRecipeInputField from '../components/AddRecipeInputField';
+import AddRecipeProductInputField from '../components/AddRecipeProductInputField';
 
 type Recipe = {
   title: string;
@@ -119,27 +112,16 @@ const AddRecipeScreen: FC<{}> = () => {
             value={title}
           />
 
-          <Text style={style.text}>Products</Text>
-          {products.map((product, index: any) => (
-            <TextInput
-              key={index}
-              style={[style.textInput, productsError && style.error]}
-              onChangeText={newText => handleProductsChange(newText, index)}
-              value={product}
-            />
-          ))}
-          {productsError && (
-            <Text style={style.errorText}>Please add some products</Text>
-          )}
-
-          {/* plus button for adding new product */}
-          <TouchableOpacity
-            onPress={() => {
-              setProducts(prevProducts => prevProducts.concat(''));
-            }}
-            style={style.roundButton}>
-            <Icon name="plus" size={24} color="#fff" />
-          </TouchableOpacity>
+          <AddRecipeProductInputField
+            title={'Products'}
+            products={products}
+            handleChange={handleProductsChange}
+            error={productsError}
+            errorMessage={'Please add some products'}
+            updateProducts={() =>
+              setProducts(prevProducts => prevProducts.concat(''))
+            }
+          />
 
           <AddRecipeInputField
             title={'Steps'}
