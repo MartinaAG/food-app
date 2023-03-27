@@ -47,8 +47,11 @@ Week - 20.02 - 26.02
 24 mart 
 1) извадих AddRecipeProductInputField в отделен компонент заедно с + бутона (както направих за AddRecipeInputField)
 
-To do list:
+27 mart
 1) да направя отделен компонент за Category
+
+To do list:
+1) да добавя стойността от Category да се листва заедно с останалите полета на Saved страницата
 2) да оправя на Search page-a да има скрол като сме добавили повече рецепти
 3) да вкарам в SectionList използването на RecipeItem за всяка една добавена рецепта на Search страницата
 4) да измисля дизайн за RecipeMini на search page-a

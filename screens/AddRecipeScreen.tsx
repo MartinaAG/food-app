@@ -5,6 +5,7 @@ import style from './AddRecipeScreen.scss';
 import {storeObjectData, clearAll, getObjectData} from '../ManageData';
 import AddRecipeInputField from '../components/AddRecipeInputField';
 import AddRecipeProductInputField from '../components/AddRecipeProductInputField';
+import CategoryDropDownField from '../components/CategoryDropDownField';
 
 type Recipe = {
   title: string;
@@ -13,7 +14,7 @@ type Recipe = {
 };
 
 const AddRecipeScreen: FC<{}> = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string>();
+  const [selectedCategory, setSelectedCategory] = useState<string>('Salad');
   const [title, setTitle] = useState<string>('');
   const [products, setProducts] = useState<string[]>(['']);
   const [steps, setSteps] = useState<string>('');
@@ -131,19 +132,11 @@ const AddRecipeScreen: FC<{}> = () => {
             value={steps}
           />
 
-          <Text style={style.text}>Category</Text>
-          <Picker
-            style={style.dropdown}
-            selectedValue={selectedCategory}
-            onValueChange={(itemValue: string) =>
-              setSelectedCategory(itemValue)
-            }
-            mode="dropdown">
-            <Picker.Item label="Salad" value="Salad" />
-            <Picker.Item label="Soup" value="Soup" />
-            <Picker.Item label="Main" value="Main" />
-            <Picker.Item label="Dessert" value="Dessert" />
-          </Picker>
+          <CategoryDropDownField
+            title={'Category'}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+          />
 
           <TouchableOpacity
             onPress={() => addRecipeToStorage()}
