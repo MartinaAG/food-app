@@ -2,15 +2,7 @@ import React, {FC} from 'react';
 import {Text, TextInput, TouchableOpacity} from 'react-native';
 import style from '../screens/AddRecipeScreen.scss';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-type AddRecipeProductInputFieldType = {
-  title: string;
-  handleChange: (newText: string, index: number) => void;
-  products: string[];
-  error: boolean;
-  errorMessage: string;
-  updateProducts: () => void;
-};
+import {AddRecipeProductInputFieldType} from '../types/types';
 
 const AddRecipeProductInputField: FC<AddRecipeProductInputFieldType> = ({
   title,

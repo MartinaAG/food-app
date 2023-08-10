@@ -2,12 +2,7 @@ import React, {FC} from 'react';
 import {Text} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import style from '../screens/AddRecipeScreen.scss';
-
-type CategoryDropDownFieldType = {
-  title: string;
-  selectedCategory: string;
-  setSelectedCategory: (itemValue: string) => void;
-};
+import {CategoryDropDownFieldType} from '../types/types';
 
 const CategoryDropDownField: FC<CategoryDropDownFieldType> = ({
   title,

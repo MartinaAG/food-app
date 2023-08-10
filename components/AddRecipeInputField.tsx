@@ -1,14 +1,7 @@
 import React, {FC} from 'react';
 import {Text, TextInput} from 'react-native';
 import style from '../screens/AddRecipeScreen.scss';
-
-type AddRecipeInputFieldType = {
-  title: string;
-  value: string;
-  handleChange: Function;
-  error: boolean;
-  errorMessage: string;
-};
+import {AddRecipeInputFieldType} from '../types/types';
 
 const AddRecipeInputField: FC<AddRecipeInputFieldType> = props => {
   return (

@@ -1,21 +1,12 @@
 import React, {FC} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
-
-type SectionListProps = {
-  recipes: DataType[];
-};
-
-type DataType = {
-  title: string;
-  products: string[];
-  steps: string;
-};
+import {RecipeDataType, SectionListProps} from '../types/types';
 
 // section list shown on the search page listing all added recipes
 const SectionList: FC<SectionListProps> = ({recipes}) => {
   return (
     <>
-      {recipes?.map((recipe: DataType) => (
+      {recipes?.map((recipe: RecipeDataType) => (
         <View style={styles.item} key={recipe?.title}>
           <Text style={styles.title}>{recipe?.title}</Text>
 
@@ -26,6 +17,7 @@ const SectionList: FC<SectionListProps> = ({recipes}) => {
           ))}
 
           <Text style={styles.title}>{recipe?.steps}</Text>
+          <Text style={styles.title}>{recipe?.category}</Text>
         </View>
       ))}
     </>

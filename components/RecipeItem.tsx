@@ -14,13 +14,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import style from './AddRecipeScreen.scss';
 import {storeStringData, getStringData, storeObjectData} from '../ManageData';
 import {BottomTabBarHeightCallbackContext} from '@react-navigation/bottom-tabs';
+import {RecipeItem} from '../types/types';
 
-type DataType = {
-  title: string;
-  data: string[];
-};
-
-const RecipeItem: FC<DataType> = ({title, data = []}) => {
+const RecipeItem: FC<RecipeItem> = ({title, data = []}) => {
   const [selectedCategory, setSelectedCategory] = useState<string>();
 
   return (

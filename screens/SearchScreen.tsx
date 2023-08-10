@@ -12,20 +12,11 @@ import {
 import SectionList from '../components/SectionList';
 
 import {getObjectData} from '../ManageData';
-
-type DataType = {
-  title: string;
-  products: string[];
-  steps: string;
-};
-
-type SearchScreenType = {
-  navigation: any;
-};
+import {RecipeDataType, SearchScreenType} from '../types/types';
 
 const SearchScreen: FC<SearchScreenType> = ({navigation}) => {
-  const [data, setData] = useState<DataType[]>([
-    {title: '', products: [], steps: ''},
+  const [data, setData] = useState<RecipeDataType[]>([
+    {title: '', products: [], steps: '', category: ''},
   ]);
 
   const updateRecipes = () => {

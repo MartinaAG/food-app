@@ -1,17 +1,11 @@
 import React, {FC, useState} from 'react';
 import {Text, ScrollView, View, Alert, TouchableOpacity} from 'react-native';
-import {Picker} from '@react-native-picker/picker';
 import style from './AddRecipeScreen.scss';
 import {storeObjectData, clearAll, getObjectData} from '../ManageData';
 import AddRecipeInputField from '../components/AddRecipeInputField';
 import AddRecipeProductInputField from '../components/AddRecipeProductInputField';
 import CategoryDropDownField from '../components/CategoryDropDownField';
-
-type Recipe = {
-  title: string;
-  products: string[];
-  steps: string;
-};
+import validateInputFields from '../hooks/validateInputFields';
 
 const AddRecipeScreen: FC<{}> = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('Salad');
@@ -37,35 +31,18 @@ const AddRecipeScreen: FC<{}> = () => {
     setSteps('');
   };
 
-  const validateInputFields = (currentRecipes: Recipe[]): boolean => {
-    let areValidInputs = true;
-
-    const isAlreadyExistingRecipe = currentRecipes.find(
-      (recipe: Recipe) => recipe.title === title,
-    );
-
-    if (!title || isAlreadyExistingRecipe) {
-      setTitleError(true);
-      areValidInputs = false;
-    }
-
-    if (!products[0]) {
-      setProductsError(true);
-      areValidInputs = false;
-    }
-
-    if (!steps) {
-      setStepsError(true);
-      areValidInputs = false;
-    }
-
-    return areValidInputs;
-  };
-
   const addRecipeToStorage = async (): Promise<void> => {
     let currentRecipes = (await getObjectData('recipes')) || [];
 
-    const areInputsValid = validateInputFields(currentRecipes);
+    const areInputsValid = validateInputFields(
+      currentRecipes,
+      title,
+      products,
+      steps,
+      setTitleError,
+      setProductsError,
+      setStepsError,
+    );
 
     if (areInputsValid) {
       storeObjectData('recipes', [
