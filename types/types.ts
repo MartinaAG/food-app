@@ -8,7 +8,7 @@ export type RecipeDataType = {
   title: string;
   products: string[];
   steps: string;
-  category: string;
+  selectedCategory: string;
 };
 
 export type SectionListProps = {

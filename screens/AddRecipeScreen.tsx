@@ -51,6 +51,7 @@ const AddRecipeScreen: FC<{}> = () => {
           title: title,
           products: products,
           steps: steps,
+          selectedCategory: selectedCategory,
         },
       ]);
 

@@ -16,7 +16,7 @@ import {RecipeDataType, SearchScreenType} from '../types/types';
 
 const SearchScreen: FC<SearchScreenType> = ({navigation}) => {
   const [data, setData] = useState<RecipeDataType[]>([
-    {title: '', products: [], steps: '', category: ''},
+    {title: '', products: [], steps: '', selectedCategory: ''},
   ]);
 
   const updateRecipes = () => {
@@ -37,9 +37,11 @@ const SearchScreen: FC<SearchScreenType> = ({navigation}) => {
   }, [navigation]);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <SectionList recipes={data} />
-    </SafeAreaView>
+    <ScrollView>
+      <SafeAreaView style={styles.container}>
+        <SectionList recipes={data} />
+      </SafeAreaView>
+    </ScrollView>
   );
 };
 

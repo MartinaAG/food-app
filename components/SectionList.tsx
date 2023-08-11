@@ -17,7 +17,7 @@ const SectionList: FC<SectionListProps> = ({recipes}) => {
           ))}
 
           <Text style={styles.title}>{recipe?.steps}</Text>
-          <Text style={styles.title}>{recipe?.category}</Text>
+          <Text style={styles.title}>{recipe?.selectedCategory}</Text>
         </View>
       ))}
     </>
