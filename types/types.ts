@@ -41,8 +41,3 @@ export type CategoryDropDownFieldType = {
   selectedCategory: string;
   setSelectedCategory: (itemValue: string) => void;
 };
-
-export type RecipeItem = {
-  title: string;
-  data: string[];
-};

@@ -9,20 +9,26 @@ import {
   StatusBar,
   StyleSheet,
 } from 'react-native';
-import {Picker} from '@react-native-picker/picker';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import style from './AddRecipeScreen.scss';
-import {storeStringData, getStringData, storeObjectData} from '../ManageData';
-import {BottomTabBarHeightCallbackContext} from '@react-navigation/bottom-tabs';
-import {RecipeItem} from '../types/types';
+import {RecipeDataType} from '../types/types';
 
-const RecipeItem: FC<RecipeItem> = ({title, data = []}) => {
-  const [selectedCategory, setSelectedCategory] = useState<string>();
-
+const RecipeItem: FC<RecipeDataType> = ({
+  title = '',
+  products = [],
+  steps = '',
+  selectedCategory = '',
+}) => {
   return (
-    <View style={styles.item}>
+    <View style={styles.item} key={title}>
       <Text style={styles.title}>{title}</Text>
-      <Text style={styles.item}>{'maryt'}</Text>
+
+      {products?.map(product => (
+        <Text style={styles.title} key={product}>
+          {product}
+        </Text>
+      ))}
+
+      <Text style={styles.title}>{steps}</Text>
+      <Text style={styles.title}>{selectedCategory}</Text>
     </View>
   );
 };
