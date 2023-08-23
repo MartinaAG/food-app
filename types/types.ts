@@ -1,3 +1,5 @@
+import {ImageSourcePropType} from 'react-native';
+
 export type Recipe = {
   title: string;
   products: string[];
@@ -40,4 +42,9 @@ export type CategoryDropDownFieldType = {
   title: string;
   selectedCategory: string;
   setSelectedCategory: (itemValue: string) => void;
+};
+
+export type CircleImageInputType = {
+  source: ImageSourcePropType;
+  size: number;
 };
