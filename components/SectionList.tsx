@@ -1,4 +1,5 @@
 import React, {FC, useState, useEffect} from 'react';
+import {Alert} from 'react-native';
 import {RecipeDataType, SectionListProps} from '../types/types';
 import RecipeItem from './RecipeItem';
 import {storeObjectData} from '../ManageData';
@@ -10,6 +11,19 @@ const SectionList: FC<SectionListProps> = ({propRecipes}) => {
   useEffect(() => {
     setRecipes(propRecipes);
   }, [propRecipes]);
+
+  const deleteRecipeItemAlert = (recipeTitle: string): void => {
+    Alert.alert(`Do you want to delete recipe ${recipeTitle}?`, '', [
+      {
+        text: 'Yes',
+        onPress: () => deleteRecipeItem(recipeTitle),
+      },
+      {
+        text: 'No',
+        onPress: () => console.log('Cancel Pressed'),
+      },
+    ]);
+  };
 
   const deleteRecipeItem = (recipeTitle: string) => {
     let currentRecipes = recipes || [];
@@ -30,7 +44,7 @@ const SectionList: FC<SectionListProps> = ({propRecipes}) => {
           products={recipe?.products}
           steps={recipe?.steps}
           selectedCategory={recipe?.selectedCategory}
-          deleteRecipeItem={deleteRecipeItem}
+          deleteRecipeItem={deleteRecipeItemAlert}
         />
       ))}
     </>
