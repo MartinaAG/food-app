@@ -11,6 +11,7 @@ export type RecipeDataType = {
   products: string[];
   steps: string;
   selectedCategory: string;
+  id: number;
 };
 
 export type RecipeItemProps = RecipeDataType & {

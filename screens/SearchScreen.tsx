@@ -1,4 +1,4 @@
-import React, {FC, useState, useEffect} from 'react';
+import React, {FC, useState, useEffect, useRef} from 'react';
 import {
   ScrollView,
   StatusBar,
@@ -16,9 +16,11 @@ import {RecipeDataType, SearchScreenType} from '../types/types';
 
 const SearchScreen: FC<SearchScreenType> = ({navigation}) => {
   const [data, setData] = useState<RecipeDataType[]>([]);
+  const scrollViewRef = useRef<ScrollView>(null);
 
   const updateRecipes = () => {
     getObjectData('recipes').then((items: any[]) => {
+      items.sort((a, b) => b.id - a.id);
       setData(items);
     });
   };
@@ -26,16 +28,18 @@ const SearchScreen: FC<SearchScreenType> = ({navigation}) => {
   // on component mount
   useEffect(() => {
     updateRecipes();
+    scrollViewRef.current!.scrollTo({x: 0, y: 0, animated: false});
   }, []);
 
   useEffect(() => {
     navigation.addListener('tabPress', () => {
       updateRecipes();
+      scrollViewRef.current!.scrollTo({x: 0, y: 0, animated: false});
     });
   }, [navigation]);
 
   return (
-    <ScrollView>
+    <ScrollView ref={scrollViewRef}>
       <SafeAreaView style={styles.container}>
         <SectionList propRecipes={data} />
       </SafeAreaView>

@@ -1,15 +1,5 @@
-import React, {FC, useState} from 'react';
-import {
-  Text,
-  TextInput,
-  ScrollView,
-  View,
-  Alert,
-  TouchableOpacity,
-  StatusBar,
-  StyleSheet,
-  Image,
-} from 'react-native';
+import React, {FC} from 'react';
+import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {RecipeItemProps} from '../types/types';
 import CircleImage from './CircleImage';

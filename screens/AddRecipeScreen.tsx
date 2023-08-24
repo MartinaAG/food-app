@@ -6,6 +6,7 @@ import AddRecipeInputField from '../components/AddRecipeInputField';
 import AddRecipeProductInputField from '../components/AddRecipeProductInputField';
 import CategoryDropDownField from '../components/CategoryDropDownField';
 import validateInputFields from '../hooks/validateInputFields';
+import {RecipeDataType} from '../types/types';
 
 const AddRecipeScreen: FC<{}> = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('Salad');
@@ -31,6 +32,18 @@ const AddRecipeScreen: FC<{}> = () => {
     setSteps('');
   };
 
+  const getRecipeId = (currentRecipes: RecipeDataType[]): number => {
+    let id = 0;
+    const length = currentRecipes.length;
+
+    if (length > 0) {
+      const lastRecipeId = currentRecipes[length - 1].id;
+      id = lastRecipeId + 1;
+    }
+
+    return id;
+  };
+
   const addRecipeToStorage = async (): Promise<void> => {
     let currentRecipes = (await getObjectData('recipes')) || [];
 
@@ -52,6 +65,7 @@ const AddRecipeScreen: FC<{}> = () => {
           products: products,
           steps: steps,
           selectedCategory: selectedCategory,
+          id: getRecipeId(currentRecipes),
         },
       ]);
 
