@@ -15,9 +15,7 @@ import {getObjectData} from '../ManageData';
 import {RecipeDataType, SearchScreenType} from '../types/types';
 
 const SearchScreen: FC<SearchScreenType> = ({navigation}) => {
-  const [data, setData] = useState<RecipeDataType[]>([
-    {title: '', products: [], steps: '', selectedCategory: ''},
-  ]);
+  const [data, setData] = useState<RecipeDataType[]>([]);
 
   const updateRecipes = () => {
     getObjectData('recipes').then((items: any[]) => {
@@ -39,7 +37,7 @@ const SearchScreen: FC<SearchScreenType> = ({navigation}) => {
   return (
     <ScrollView>
       <SafeAreaView style={styles.container}>
-        <SectionList recipes={data} />
+        <SectionList propRecipes={data} />
       </SafeAreaView>
     </ScrollView>
   );

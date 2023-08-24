@@ -10,16 +10,23 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
-import {RecipeDataType} from '../types/types';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {RecipeItemProps} from '../types/types';
 import CircleImage from './CircleImage';
 
-const RecipeItem: FC<RecipeDataType> = ({
+const RecipeItem: FC<RecipeItemProps> = ({
   title = '',
   selectedCategory = '',
+  deleteRecipeItem,
 }) => {
   return (
     <View style={styles.item} key={title}>
       <CircleImage source={require('../images/manja.jpg')} size={100} />
+      <TouchableOpacity
+        onPress={() => deleteRecipeItem(title)}
+        style={styles.deleteButton}>
+        <Icon name="close" size={24} color="#b87aa8" />
+      </TouchableOpacity>
       <View style={styles.textContainer}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.category}>Category: {selectedCategory}</Text>
@@ -42,6 +49,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3, // Shadow opacity
     shadowRadius: 4, // Shadow radius
     elevation: 4, // Android shadow elevation
+  },
+  deleteButton: {
+    position: 'absolute',
+    top: 13,
+    right: 20,
+    zIndex: 1,
   },
   title: {
     fontSize: 26,

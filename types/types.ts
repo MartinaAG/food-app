@@ -13,8 +13,12 @@ export type RecipeDataType = {
   selectedCategory: string;
 };
 
+export type RecipeItemProps = RecipeDataType & {
+  deleteRecipeItem: Function;
+};
+
 export type SectionListProps = {
-  recipes: RecipeDataType[];
+  propRecipes: RecipeDataType[];
 };
 
 export type SearchScreenType = {
