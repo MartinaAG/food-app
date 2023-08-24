@@ -19,6 +19,8 @@ const RecipeItem: FC<RecipeItemProps> = ({
   selectedCategory = '',
   deleteRecipeItem,
 }) => {
+  const shorterTitle = title.length > 14 ? title.substr(0, 13) + '...' : title;
+
   return (
     <View style={styles.item} key={title}>
       <CircleImage source={require('../images/manja.jpg')} size={100} />
@@ -28,7 +30,7 @@ const RecipeItem: FC<RecipeItemProps> = ({
         <Icon name="close" size={24} color="#b87aa8" />
       </TouchableOpacity>
       <View style={styles.textContainer}>
-        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.title}>{shorterTitle}</Text>
         <Text style={styles.category}>Category: {selectedCategory}</Text>
       </View>
     </View>
