@@ -1,6 +1,6 @@
 
 $base-color: rgb(33, 37, 34);
-$secondary-color: rgb(94, 189, 118);
+$secondary-color: rgb(209, 115, 189);
 
 .wrapperView {
     flex: 1;
@@ -50,7 +50,7 @@ $secondary-color: rgb(94, 189, 118);
 }
 
 .addRecipeButton {
-    top: 15px;
+    top: 20px;
     border-width: 1px;
     border-color: rgba(0,0,0,0.2);
     align-items: center;
@@ -60,6 +60,20 @@ $secondary-color: rgb(94, 189, 118);
     background-color: $secondary-color;
     border-radius: 50px;
     margin: auto;
+}
+
+.addImageButton {
+    top: 20px;
+    border-width: 1px;
+    border-color: rgba(0,0,0,0.2);
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    height: 55px;
+    background-color: $secondary-color;
+    border-radius: 20px;
+    margin: auto;
+    margin-bottom: 20px;
 }
 
 .textButton {
@@ -77,4 +91,17 @@ $secondary-color: rgb(94, 189, 118);
     color: red;
     font-size: 15;
     margin-top: 5;
+}
+
+.selectedImage {
+    top: 20px;
+    width: 200px;
+    height: 125px;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    margin-bottom: 20px;
+    border: 1px solid #dfbfbf;
+    border-radius: 7px;
+
 }

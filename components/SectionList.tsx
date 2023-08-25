@@ -45,6 +45,7 @@ const SectionList: FC<SectionListProps> = ({propRecipes}) => {
           steps={recipe?.steps}
           selectedCategory={recipe?.selectedCategory}
           id={recipe?.id}
+          selectedImageBase64={recipe?.selectedImageBase64}
           deleteRecipeItem={deleteRecipeItemAlert}
         />
       ))}

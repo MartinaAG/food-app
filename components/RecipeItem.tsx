@@ -8,12 +8,14 @@ const RecipeItem: FC<RecipeItemProps> = ({
   title = '',
   selectedCategory = '',
   deleteRecipeItem,
+  selectedImageBase64,
 }) => {
   const shorterTitle = title.length > 14 ? title.substr(0, 13) + '...' : title;
+  const imageSource = {uri: `data:image/jpeg;base64,${selectedImageBase64}`};
 
   return (
     <View style={styles.item} key={title}>
-      <CircleImage source={require('../images/manja.jpg')} size={100} />
+      <CircleImage source={imageSource} size={100} />
       <TouchableOpacity
         onPress={() => deleteRecipeItem(title)}
         style={styles.deleteButton}>

@@ -1,5 +1,12 @@
-import React, {FC, useState} from 'react';
-import {Text, ScrollView, View, Alert, TouchableOpacity} from 'react-native';
+import React, {FC, useState, useEffect} from 'react';
+import {
+  Text,
+  ScrollView,
+  View,
+  Alert,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import style from './AddRecipeScreen.scss';
 import {storeObjectData, clearAll, getObjectData} from '../ManageData';
 import AddRecipeInputField from '../components/AddRecipeInputField';
@@ -7,6 +14,7 @@ import AddRecipeProductInputField from '../components/AddRecipeProductInputField
 import CategoryDropDownField from '../components/CategoryDropDownField';
 import validateInputFields from '../hooks/validateInputFields';
 import {RecipeDataType} from '../types/types';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 const AddRecipeScreen: FC<{}> = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('Salad');
@@ -16,6 +24,8 @@ const AddRecipeScreen: FC<{}> = () => {
   const [titleError, setTitleError] = useState(false);
   const [productsError, setProductsError] = useState(false);
   const [stepsError, setStepsError] = useState(false);
+  const [selectedImageURI, setSelectedImageURI] = useState('');
+  const [selectedImageBase64, setSelectedImageBase64] = useState('');
 
   const showAddedRecipeAlert = (): void => {
     Alert.alert('Recipe added', 'View all recipes in the Search menu', [
@@ -30,6 +40,8 @@ const AddRecipeScreen: FC<{}> = () => {
     setTitle('');
     setProducts(['']);
     setSteps('');
+    setSelectedImageURI('');
+    setSelectedImageBase64('');
   };
 
   const getRecipeId = (currentRecipes: RecipeDataType[]): number => {
@@ -66,6 +78,7 @@ const AddRecipeScreen: FC<{}> = () => {
           steps: steps,
           selectedCategory: selectedCategory,
           id: getRecipeId(currentRecipes),
+          selectedImageBase64: selectedImageBase64,
         },
       ]);
 
@@ -92,6 +105,28 @@ const AddRecipeScreen: FC<{}> = () => {
     setSteps(newText);
     setStepsError(false);
   };
+
+  const pickImage = () => {
+    launchImageLibrary(
+      {
+        mediaType: 'photo',
+        includeBase64: true,
+        maxHeight: 200,
+        maxWidth: 200,
+      },
+      response => {
+        if (!response.didCancel && !response.error) {
+          const uri = response?.assets?.[0]?.uri || '';
+          setSelectedImageURI(uri);
+
+          const base64 = response?.assets?.[0]?.base64 || '';
+          setSelectedImageBase64(base64);
+        }
+      },
+    );
+  };
+
+  const imageButtonText = selectedImageURI ? 'Change image' : 'Add image';
 
   return (
     <View style={style.wrapperView}>
@@ -129,6 +164,19 @@ const AddRecipeScreen: FC<{}> = () => {
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
           />
+
+          <TouchableOpacity
+            onPress={() => pickImage()}
+            style={style.addImageButton}>
+            <Text style={style.textButton}>{imageButtonText}</Text>
+          </TouchableOpacity>
+
+          {selectedImageURI && (
+            <Image
+              source={{uri: selectedImageURI}}
+              style={style.selectedImage}
+            />
+          )}
 
           <TouchableOpacity
             onPress={() => addRecipeToStorage()}

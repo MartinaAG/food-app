@@ -12,6 +12,7 @@ export type RecipeDataType = {
   steps: string;
   selectedCategory: string;
   id: number;
+  selectedImageBase64?: string;
 };
 
 export type RecipeItemProps = RecipeDataType & {
